@@ -1,1 +1,69 @@
-<p>upload-counter works!</p>
+<section class="upload">
+  <h1 class="upload__title">Upload de Arquivo</h1>
+
+  <div
+    class="upload__dropzone"
+    [class.upload__dropzone--active]="isDragging()"
+    (drop)="onDrop($event)"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+  >
+    <span class="upload__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="40" height="40" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <polyline points="17 8 12 3 7 8" />
+        <line x1="12" y1="3" x2="12" y2="15" />
+      </svg>
+    </span>
+    <p class="upload__hint">Arraste uma imagem ou vídeo para esta área</p>
+
+    <label class="btn btn--primary">
+      Selecionar Arquivo
+      <input
+        type="file"
+        accept="image/*,video/*"
+        hidden
+        (change)="onFileSelected($event)"
+      />
+    </label>
+  </div>
+
+  @if (previewUrl(); as url) {
+    <div class="upload__preview">
+      @if (fileName(); as name) {
+        <p class="upload__filename">{{ name }}</p>
+      }
+
+      <div class="upload__stage">
+        @if (fileType() === 'image') {
+          <img
+            class="upload__media"
+            [src]="url"
+            alt="Pré-visualização da imagem"
+            (load)="onImageLoaded($event)"
+          />
+        } @else if (fileType() === 'video') {
+          <video
+            class="upload__media"
+            [src]="url"
+            controls
+            (play)="onVideoPlay($event)"
+            (pause)="onVideoPause()"
+            (ended)="onVideoPause()"
+          ></video>
+        }
+        <canvas #overlay class="upload__overlay"></canvas>
+
+        @if (isLoading()) {
+          <div class="upload__loading-overlay">
+            <app-loading text="Analisando..." />
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <app-counter-card [count]="peopleCount()" />
+</section>

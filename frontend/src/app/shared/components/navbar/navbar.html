@@ -1,1 +1,54 @@
-<p>navbar works!</p>
+<header class="navbar">
+  <a class="navbar__logo" routerLink="/" (click)="closeMenu()">
+    <span class="navbar__logo-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    </span>
+    People Counter
+  </a>
+
+  <button
+    class="navbar__toggle"
+    type="button"
+    [attr.aria-expanded]="isMenuOpen()"
+    aria-label="Abrir menu"
+    (click)="toggleMenu()"
+  >
+    @if (isMenuOpen()) {
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    } @else {
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    }
+  </button>
+
+  <nav class="navbar__menu" [class.navbar__menu--open]="isMenuOpen()">
+    @for (link of links; track link.path) {
+      <a
+        class="navbar__link"
+        [routerLink]="link.path"
+        routerLinkActive="navbar__link--active"
+        [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+        (click)="closeMenu()"
+      >
+        {{ link.label }}
+      </a>
+    }
+  </nav>
+</header>

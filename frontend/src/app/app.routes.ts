@@ -18,5 +18,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/upload-counter/upload-counter')
         .then(m => m.UploadCounter)
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./features/dashboard/dashboard')
+        .then(m => m.Dashboard)
   }
 ];
