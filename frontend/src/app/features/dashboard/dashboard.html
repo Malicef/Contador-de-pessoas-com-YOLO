@@ -1,0 +1,42 @@
+<section class="dashboard">
+  <h1 class="dashboard__title">Dashboard</h1>
+
+  <div class="dashboard__summary">
+    <div class="summary-card">
+      <p class="summary-card__label">Total de pessoas detectadas</p>
+      <p class="summary-card__value">{{ totalDetected }}</p>
+    </div>
+    <div class="summary-card">
+      <p class="summary-card__label">Última análise</p>
+      <p class="summary-card__value summary-card__value--text">{{ lastAnalysis }}</p>
+    </div>
+  </div>
+
+  <div class="dashboard__history">
+    <h2 class="dashboard__subtitle">Histórico</h2>
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>Horário</th>
+          <th>Tipo</th>
+          <th>Pessoas detectadas</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of history; track $index) {
+          <tr>
+            <td>{{ item.timestamp }}</td>
+            <td>{{ item.source }}</td>
+            <td>{{ item.count }}</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td class="history-table__empty" colspan="3">
+              Nenhum registro no histórico.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

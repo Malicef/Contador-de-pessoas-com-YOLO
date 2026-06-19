@@ -1,0 +1,41 @@
+<section class="live">
+  <h1 class="live__title">Contagem ao Vivo</h1>
+
+  <div class="live__video-card">
+    <div class="live__stage">
+      <video #video class="live__video" muted playsinline></video>
+      <canvas #overlay class="live__overlay"></canvas>
+
+      @if (isLoading()) {
+        <div class="live__loading-overlay">
+          <app-loading text="Carregando modelo e câmera..." />
+        </div>
+      }
+    </div>
+  </div>
+
+  @if (errorMessage(); as error) {
+    <p class="live__error">{{ error }}</p>
+  }
+
+  <app-counter-card [count]="peopleCount()" />
+
+  <div class="live__actions">
+    <button
+      class="btn btn--primary"
+      type="button"
+      [disabled]="isCameraActive() || isLoading()"
+      (click)="startCamera()"
+    >
+      Iniciar câmera
+    </button>
+    <button
+      class="btn btn--secondary"
+      type="button"
+      [disabled]="!isCameraActive()"
+      (click)="stopCamera()"
+    >
+      Parar câmera
+    </button>
+  </div>
+</section>
