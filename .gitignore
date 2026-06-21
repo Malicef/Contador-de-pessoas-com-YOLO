@@ -1,0 +1,21 @@
+# Dataset descompactado (mantenha apenas o dataset.zip no repositório)
+/dataset/
+
+# Saídas geradas pela avaliação
+/results/
+
+# Pesos .pt baixados pela ultralytics na raiz (o .onnx do frontend é versionado)
+/*.pt
+
+# Artefatos da ultralytics
+runs/
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+dataset.zip
+*.zip
